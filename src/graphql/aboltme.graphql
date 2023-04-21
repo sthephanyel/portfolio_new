@@ -1,0 +1,15 @@
+query AboutMe {
+  aboutMes {
+    id
+    title
+    text
+    titleFinal
+    picture {
+      url(transformation: {image: {resize: {fit: clip, height: 512, width: 512}}})
+    }
+    content {
+      html
+      markdown
+    }
+  }
+}
