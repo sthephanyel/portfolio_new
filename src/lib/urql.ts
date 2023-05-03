@@ -4,7 +4,7 @@ const isServerSide = typeof window == 'undefined';
 const ssrCache = ssrExchange({isClient : !isServerSide});
 
 const client = createClient({
-    url: `https://api-sa-east-1.hygraph.com/v2/clgpm3c870lky01up9f5s2ozd/master`,
+    url: `${process.env.NEXT_PUBLIC_DB_URQL}`,
     exchanges: [dedupExchange, cacheExchange, ssrCache, fetchExchange],
 })
 

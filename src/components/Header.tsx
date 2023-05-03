@@ -1,3 +1,4 @@
+import { House, BookOpenText, User, AddressBook, ChatCenteredDots } from '@phosphor-icons/react';
 import React,{useContext, FormEvent, useState, useEffect} from 'react';
 
 export default function Header(){
@@ -18,7 +19,7 @@ export default function Header(){
 
     return(
         <header className={`flex w-full h-16 ease-in ${colorChange ? 'bg-black-100' : ''} duration-150 sticky top-0 left-0 z-[999] justify-center align-center text-center`}>
-            <div className='flex w-full h-full px-10 justify-start align-center items-center'>
+            <div className='flex w-full h-full px-10 justify-start align-center items-center max-lg:w-2/5 max-md:w-1/4'>
                 <svg width="40" height="47" viewBox="0 0 40 47" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect width="40" height="47" fill="white"/>
                     <rect x="1" y="1" width="38" height="45" fill="#060C14"/>
@@ -32,11 +33,17 @@ export default function Header(){
             </div>
             <nav className='flex flex-wrap w-full h-full justify-center align-center place-items-center'>
                 <div className='flex w-full justify-around'>
-                    <a href='#' className='ease-in duration-150 hover:text-gray-200'>HOME</a>
-                    <a href='#' className='ease-in duration-150 hover:text-gray-200'>SOBRE MIM</a>
-                    <a href='#' className='ease-in duration-150 hover:text-gray-200'>SKILLS</a>
-                    <a href='#' className='ease-in duration-150 hover:text-gray-200'>EXPERIENCIAS</a>
-                    <a href='#' className='ease-in duration-150 hover:text-gray-200'>CONTATOS</a>
+                    <a href='#'><House size={32} color="#fafafa"  className='hidden max-sm:inline'/></a>
+                    <a href='#aboutPage'><User size={32} color="#fafafa"  className='hidden max-sm:inline'/></a>
+                    <a href='#skillsPage'><BookOpenText size={32} color="#fafafa"  className='hidden max-sm:inline'/></a>
+                    <a href='#experiencePage'><AddressBook size={32} color="#fafafa"  className='hidden max-sm:inline'/></a>
+                    <a href='#contactsPage'><ChatCenteredDots size={32} color="#fafafa" className='hidden max-sm:inline' /></a>
+                    
+                    <a href='#' className='ease-in duration-150 hover:text-gray-200 hover:border-b-2 hover:border-gray-200 inline max-sm:hidden'>HOME</a>
+                    <a href='#aboutPage' className='ease-in duration-150 hover:text-gray-200 hover:border-b-2 hover:border-gray-200 inline max-sm:hidden'>SOBRE MIM</a>
+                    <a href='#skillsPage' className='ease-in duration-150 hover:text-gray-200 hover:border-b-2 hover:border-gray-200 inline max-sm:hidden'>SKILLS</a>
+                    <a href='#experiencePage' className='ease-in duration-150 hover:text-gray-200 hover:border-b-2 hover:border-gray-200 inline max-sm:hidden'>EXPERIENCIAS</a>
+                    <a href='#contactsPage' className='ease-in duration-150 hover:text-gray-200 hover:border-b-2 hover:border-gray-200 inline max-sm:hidden'>CONTATOS</a>
                 </div>
             </nav>
         </header>

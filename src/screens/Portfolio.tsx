@@ -4,6 +4,7 @@ import  Main  from '../components/Main';
 import React from 'react';
 import Skills from '@/components/Skills';
 import Experience from '@/components/Experience';
+import Contacts from '@/components/Contacts';
 
 export function Portfolio(){
 
@@ -14,6 +15,7 @@ export function Portfolio(){
             <AboutMe/>
             <Skills/>
             <Experience/>
+            <Contacts/>
         </>
     )
 }

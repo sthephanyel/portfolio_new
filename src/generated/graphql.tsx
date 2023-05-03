@@ -595,10 +595,12 @@ export type Asset = Node & {
   locale: Locale;
   /** Get the other localizations for this document */
   localizations: Array<Asset>;
+  logoCompanyExperience: Array<Experience>;
   /** The mime type of the file */
   mimeType?: Maybe<Scalars['String']>;
   pictureAboutMe: Array<AboutMe>;
   pictureAuthor: Array<Author>;
+  pictureSkillSkill: Array<Skill>;
   /** The time the document was published. Null on documents in draft stage. */
   publishedAt?: Maybe<Scalars['DateTime']>;
   /** User that last published this document */
@@ -656,6 +658,20 @@ export type AssetLocalizationsArgs = {
 
 
 /** Asset system model */
+export type AssetLogoCompanyExperienceArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: InputMaybe<Array<Locale>>;
+  orderBy?: InputMaybe<ExperienceOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<ExperienceWhereInput>;
+};
+
+
+/** Asset system model */
 export type AssetPictureAboutMeArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
@@ -680,6 +696,20 @@ export type AssetPictureAuthorArgs = {
   orderBy?: InputMaybe<AuthorOrderByInput>;
   skip?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<AuthorWhereInput>;
+};
+
+
+/** Asset system model */
+export type AssetPictureSkillSkillArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: InputMaybe<Array<Locale>>;
+  orderBy?: InputMaybe<SkillOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<SkillWhereInput>;
 };
 
 
@@ -751,9 +781,11 @@ export type AssetCreateInput = {
   height?: InputMaybe<Scalars['Float']>;
   /** Inline mutations for managing document localizations excluding the default locale */
   localizations?: InputMaybe<AssetCreateLocalizationsInput>;
+  logoCompanyExperience?: InputMaybe<ExperienceCreateManyInlineInput>;
   mimeType?: InputMaybe<Scalars['String']>;
   pictureAboutMe?: InputMaybe<AboutMeCreateManyInlineInput>;
   pictureAuthor?: InputMaybe<AuthorCreateManyInlineInput>;
+  pictureSkillSkill?: InputMaybe<SkillCreateManyInlineInput>;
   size?: InputMaybe<Scalars['Float']>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   width?: InputMaybe<Scalars['Float']>;
@@ -852,12 +884,18 @@ export type AssetManyWhereInput = {
   id_not_starts_with?: InputMaybe<Scalars['ID']>;
   /** All values starting with the given string. */
   id_starts_with?: InputMaybe<Scalars['ID']>;
+  logoCompanyExperience_every?: InputMaybe<ExperienceWhereInput>;
+  logoCompanyExperience_none?: InputMaybe<ExperienceWhereInput>;
+  logoCompanyExperience_some?: InputMaybe<ExperienceWhereInput>;
   pictureAboutMe_every?: InputMaybe<AboutMeWhereInput>;
   pictureAboutMe_none?: InputMaybe<AboutMeWhereInput>;
   pictureAboutMe_some?: InputMaybe<AboutMeWhereInput>;
   pictureAuthor_every?: InputMaybe<AuthorWhereInput>;
   pictureAuthor_none?: InputMaybe<AuthorWhereInput>;
   pictureAuthor_some?: InputMaybe<AuthorWhereInput>;
+  pictureSkillSkill_every?: InputMaybe<SkillWhereInput>;
+  pictureSkillSkill_none?: InputMaybe<SkillWhereInput>;
+  pictureSkillSkill_some?: InputMaybe<SkillWhereInput>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -932,9 +970,11 @@ export type AssetUpdateInput = {
   height?: InputMaybe<Scalars['Float']>;
   /** Manage document localizations */
   localizations?: InputMaybe<AssetUpdateLocalizationsInput>;
+  logoCompanyExperience?: InputMaybe<ExperienceUpdateManyInlineInput>;
   mimeType?: InputMaybe<Scalars['String']>;
   pictureAboutMe?: InputMaybe<AboutMeUpdateManyInlineInput>;
   pictureAuthor?: InputMaybe<AuthorUpdateManyInlineInput>;
+  pictureSkillSkill?: InputMaybe<SkillUpdateManyInlineInput>;
   size?: InputMaybe<Scalars['Float']>;
   width?: InputMaybe<Scalars['Float']>;
 };
@@ -1164,6 +1204,9 @@ export type AssetWhereInput = {
   id_not_starts_with?: InputMaybe<Scalars['ID']>;
   /** All values starting with the given string. */
   id_starts_with?: InputMaybe<Scalars['ID']>;
+  logoCompanyExperience_every?: InputMaybe<ExperienceWhereInput>;
+  logoCompanyExperience_none?: InputMaybe<ExperienceWhereInput>;
+  logoCompanyExperience_some?: InputMaybe<ExperienceWhereInput>;
   mimeType?: InputMaybe<Scalars['String']>;
   /** All values containing the given string. */
   mimeType_contains?: InputMaybe<Scalars['String']>;
@@ -1189,6 +1232,9 @@ export type AssetWhereInput = {
   pictureAuthor_every?: InputMaybe<AuthorWhereInput>;
   pictureAuthor_none?: InputMaybe<AuthorWhereInput>;
   pictureAuthor_some?: InputMaybe<AuthorWhereInput>;
+  pictureSkillSkill_every?: InputMaybe<SkillWhereInput>;
+  pictureSkillSkill_none?: InputMaybe<SkillWhereInput>;
+  pictureSkillSkill_some?: InputMaybe<SkillWhereInput>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -1911,6 +1957,629 @@ export type DocumentVersion = {
   stage: Stage;
 };
 
+/** experiencias de trabalho. */
+export type Experience = Node & {
+  __typename?: 'Experience';
+  /** The time the document was created */
+  createdAt: Scalars['DateTime'];
+  /** User that created this document */
+  createdBy?: Maybe<User>;
+  /** data fim */
+  dateEnd?: Maybe<Scalars['Date']>;
+  /** data de inicio */
+  dateStartCompany: Scalars['Date'];
+  /** Get the document in other stages */
+  documentInStages: Array<Experience>;
+  /** List of Experience versions */
+  history: Array<Version>;
+  /** The unique identifier */
+  id: Scalars['ID'];
+  /** site da empresa */
+  linkCompany?: Maybe<Scalars['String']>;
+  /** localização da empresa */
+  locationCompany: Location;
+  /** logo da empresa */
+  logoCompany: Asset;
+  /** nome das empresas */
+  nameCompany: Scalars['String'];
+  /** The time the document was published. Null on documents in draft stage. */
+  publishedAt?: Maybe<Scalars['DateTime']>;
+  /** User that last published this document */
+  publishedBy?: Maybe<User>;
+  scheduledIn: Array<ScheduledOperation>;
+  /** System stage field */
+  stage: Stage;
+  /**
+   * tipo
+   * ex:tempo integral
+   */
+  type: Scalars['String'];
+  /** The time the document was updated */
+  updatedAt: Scalars['DateTime'];
+  /** User that last updated this document */
+  updatedBy?: Maybe<User>;
+};
+
+
+/** experiencias de trabalho. */
+export type ExperienceCreatedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
+/** experiencias de trabalho. */
+export type ExperienceDocumentInStagesArgs = {
+  includeCurrent?: Scalars['Boolean'];
+  inheritLocale?: Scalars['Boolean'];
+  stages?: Array<Stage>;
+};
+
+
+/** experiencias de trabalho. */
+export type ExperienceHistoryArgs = {
+  limit?: Scalars['Int'];
+  skip?: Scalars['Int'];
+  stageOverride?: InputMaybe<Stage>;
+};
+
+
+/** experiencias de trabalho. */
+export type ExperienceLogoCompanyArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
+/** experiencias de trabalho. */
+export type ExperiencePublishedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
+/** experiencias de trabalho. */
+export type ExperienceScheduledInArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: InputMaybe<Array<Locale>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<ScheduledOperationWhereInput>;
+};
+
+
+/** experiencias de trabalho. */
+export type ExperienceUpdatedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+export type ExperienceConnectInput = {
+  /** Allow to specify document position in list of connected documents, will default to appending at end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+  /** Document to connect */
+  where: ExperienceWhereUniqueInput;
+};
+
+/** A connection to a list of items. */
+export type ExperienceConnection = {
+  __typename?: 'ExperienceConnection';
+  aggregate: Aggregate;
+  /** A list of edges. */
+  edges: Array<ExperienceEdge>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+};
+
+export type ExperienceCreateInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  dateEnd?: InputMaybe<Scalars['Date']>;
+  dateStartCompany: Scalars['Date'];
+  linkCompany?: InputMaybe<Scalars['String']>;
+  locationCompany: LocationInput;
+  logoCompany: AssetCreateOneInlineInput;
+  nameCompany: Scalars['String'];
+  type: Scalars['String'];
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type ExperienceCreateManyInlineInput = {
+  /** Connect multiple existing Experience documents */
+  connect?: InputMaybe<Array<ExperienceWhereUniqueInput>>;
+  /** Create and connect multiple existing Experience documents */
+  create?: InputMaybe<Array<ExperienceCreateInput>>;
+};
+
+export type ExperienceCreateOneInlineInput = {
+  /** Connect one existing Experience document */
+  connect?: InputMaybe<ExperienceWhereUniqueInput>;
+  /** Create and connect one Experience document */
+  create?: InputMaybe<ExperienceCreateInput>;
+};
+
+/** An edge in a connection. */
+export type ExperienceEdge = {
+  __typename?: 'ExperienceEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String'];
+  /** The item at the end of the edge. */
+  node: Experience;
+};
+
+/** Identifies documents */
+export type ExperienceManyWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<ExperienceWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<ExperienceWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<ExperienceWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  createdAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  createdAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  createdAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  createdAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  createdAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  createdAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  createdBy?: InputMaybe<UserWhereInput>;
+  dateEnd?: InputMaybe<Scalars['Date']>;
+  /** All values greater than the given value. */
+  dateEnd_gt?: InputMaybe<Scalars['Date']>;
+  /** All values greater than or equal the given value. */
+  dateEnd_gte?: InputMaybe<Scalars['Date']>;
+  /** All values that are contained in given list. */
+  dateEnd_in?: InputMaybe<Array<InputMaybe<Scalars['Date']>>>;
+  /** All values less than the given value. */
+  dateEnd_lt?: InputMaybe<Scalars['Date']>;
+  /** All values less than or equal the given value. */
+  dateEnd_lte?: InputMaybe<Scalars['Date']>;
+  /** Any other value that exists and is not equal to the given value. */
+  dateEnd_not?: InputMaybe<Scalars['Date']>;
+  /** All values that are not contained in given list. */
+  dateEnd_not_in?: InputMaybe<Array<InputMaybe<Scalars['Date']>>>;
+  dateStartCompany?: InputMaybe<Scalars['Date']>;
+  /** All values greater than the given value. */
+  dateStartCompany_gt?: InputMaybe<Scalars['Date']>;
+  /** All values greater than or equal the given value. */
+  dateStartCompany_gte?: InputMaybe<Scalars['Date']>;
+  /** All values that are contained in given list. */
+  dateStartCompany_in?: InputMaybe<Array<InputMaybe<Scalars['Date']>>>;
+  /** All values less than the given value. */
+  dateStartCompany_lt?: InputMaybe<Scalars['Date']>;
+  /** All values less than or equal the given value. */
+  dateStartCompany_lte?: InputMaybe<Scalars['Date']>;
+  /** Any other value that exists and is not equal to the given value. */
+  dateStartCompany_not?: InputMaybe<Scalars['Date']>;
+  /** All values that are not contained in given list. */
+  dateStartCompany_not_in?: InputMaybe<Array<InputMaybe<Scalars['Date']>>>;
+  documentInStages_every?: InputMaybe<ExperienceWhereStageInput>;
+  documentInStages_none?: InputMaybe<ExperienceWhereStageInput>;
+  documentInStages_some?: InputMaybe<ExperienceWhereStageInput>;
+  id?: InputMaybe<Scalars['ID']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  id_not?: InputMaybe<Scalars['ID']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']>;
+  linkCompany?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  linkCompany_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  linkCompany_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  linkCompany_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  linkCompany_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  linkCompany_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  linkCompany_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  linkCompany_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  linkCompany_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  linkCompany_starts_with?: InputMaybe<Scalars['String']>;
+  logoCompany?: InputMaybe<AssetWhereInput>;
+  nameCompany?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  nameCompany_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  nameCompany_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  nameCompany_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  nameCompany_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  nameCompany_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  nameCompany_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  nameCompany_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  nameCompany_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  nameCompany_starts_with?: InputMaybe<Scalars['String']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  publishedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  publishedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  publishedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  publishedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  publishedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  publishedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  publishedBy?: InputMaybe<UserWhereInput>;
+  scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  type?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  type_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  type_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  type_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  type_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  type_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  type_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  type_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  type_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  type_starts_with?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  updatedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  updatedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  updatedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  updatedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  updatedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  updatedBy?: InputMaybe<UserWhereInput>;
+};
+
+export enum ExperienceOrderByInput {
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  DateEndAsc = 'dateEnd_ASC',
+  DateEndDesc = 'dateEnd_DESC',
+  DateStartCompanyAsc = 'dateStartCompany_ASC',
+  DateStartCompanyDesc = 'dateStartCompany_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  LinkCompanyAsc = 'linkCompany_ASC',
+  LinkCompanyDesc = 'linkCompany_DESC',
+  NameCompanyAsc = 'nameCompany_ASC',
+  NameCompanyDesc = 'nameCompany_DESC',
+  PublishedAtAsc = 'publishedAt_ASC',
+  PublishedAtDesc = 'publishedAt_DESC',
+  TypeAsc = 'type_ASC',
+  TypeDesc = 'type_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC'
+}
+
+export type ExperienceUpdateInput = {
+  dateEnd?: InputMaybe<Scalars['Date']>;
+  dateStartCompany?: InputMaybe<Scalars['Date']>;
+  linkCompany?: InputMaybe<Scalars['String']>;
+  locationCompany?: InputMaybe<LocationInput>;
+  logoCompany?: InputMaybe<AssetUpdateOneInlineInput>;
+  nameCompany?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+};
+
+export type ExperienceUpdateManyInlineInput = {
+  /** Connect multiple existing Experience documents */
+  connect?: InputMaybe<Array<ExperienceConnectInput>>;
+  /** Create and connect multiple Experience documents */
+  create?: InputMaybe<Array<ExperienceCreateInput>>;
+  /** Delete multiple Experience documents */
+  delete?: InputMaybe<Array<ExperienceWhereUniqueInput>>;
+  /** Disconnect multiple Experience documents */
+  disconnect?: InputMaybe<Array<ExperienceWhereUniqueInput>>;
+  /** Override currently-connected documents with multiple existing Experience documents */
+  set?: InputMaybe<Array<ExperienceWhereUniqueInput>>;
+  /** Update multiple Experience documents */
+  update?: InputMaybe<Array<ExperienceUpdateWithNestedWhereUniqueInput>>;
+  /** Upsert multiple Experience documents */
+  upsert?: InputMaybe<Array<ExperienceUpsertWithNestedWhereUniqueInput>>;
+};
+
+export type ExperienceUpdateManyInput = {
+  dateEnd?: InputMaybe<Scalars['Date']>;
+  dateStartCompany?: InputMaybe<Scalars['Date']>;
+  locationCompany?: InputMaybe<LocationInput>;
+  nameCompany?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+};
+
+export type ExperienceUpdateManyWithNestedWhereInput = {
+  /** Update many input */
+  data: ExperienceUpdateManyInput;
+  /** Document search */
+  where: ExperienceWhereInput;
+};
+
+export type ExperienceUpdateOneInlineInput = {
+  /** Connect existing Experience document */
+  connect?: InputMaybe<ExperienceWhereUniqueInput>;
+  /** Create and connect one Experience document */
+  create?: InputMaybe<ExperienceCreateInput>;
+  /** Delete currently connected Experience document */
+  delete?: InputMaybe<Scalars['Boolean']>;
+  /** Disconnect currently connected Experience document */
+  disconnect?: InputMaybe<Scalars['Boolean']>;
+  /** Update single Experience document */
+  update?: InputMaybe<ExperienceUpdateWithNestedWhereUniqueInput>;
+  /** Upsert single Experience document */
+  upsert?: InputMaybe<ExperienceUpsertWithNestedWhereUniqueInput>;
+};
+
+export type ExperienceUpdateWithNestedWhereUniqueInput = {
+  /** Document to update */
+  data: ExperienceUpdateInput;
+  /** Unique document search */
+  where: ExperienceWhereUniqueInput;
+};
+
+export type ExperienceUpsertInput = {
+  /** Create document if it didn't exist */
+  create: ExperienceCreateInput;
+  /** Update document if it exists */
+  update: ExperienceUpdateInput;
+};
+
+export type ExperienceUpsertWithNestedWhereUniqueInput = {
+  /** Upsert data */
+  data: ExperienceUpsertInput;
+  /** Unique document search */
+  where: ExperienceWhereUniqueInput;
+};
+
+/** This contains a set of filters that can be used to compare values internally */
+export type ExperienceWhereComparatorInput = {
+  /** This field can be used to request to check if the entry is outdated by internal comparison */
+  outdated_to?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** Identifies documents */
+export type ExperienceWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<ExperienceWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<ExperienceWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<ExperienceWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  createdAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  createdAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  createdAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  createdAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  createdAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  createdAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  createdBy?: InputMaybe<UserWhereInput>;
+  dateEnd?: InputMaybe<Scalars['Date']>;
+  /** All values greater than the given value. */
+  dateEnd_gt?: InputMaybe<Scalars['Date']>;
+  /** All values greater than or equal the given value. */
+  dateEnd_gte?: InputMaybe<Scalars['Date']>;
+  /** All values that are contained in given list. */
+  dateEnd_in?: InputMaybe<Array<InputMaybe<Scalars['Date']>>>;
+  /** All values less than the given value. */
+  dateEnd_lt?: InputMaybe<Scalars['Date']>;
+  /** All values less than or equal the given value. */
+  dateEnd_lte?: InputMaybe<Scalars['Date']>;
+  /** Any other value that exists and is not equal to the given value. */
+  dateEnd_not?: InputMaybe<Scalars['Date']>;
+  /** All values that are not contained in given list. */
+  dateEnd_not_in?: InputMaybe<Array<InputMaybe<Scalars['Date']>>>;
+  dateStartCompany?: InputMaybe<Scalars['Date']>;
+  /** All values greater than the given value. */
+  dateStartCompany_gt?: InputMaybe<Scalars['Date']>;
+  /** All values greater than or equal the given value. */
+  dateStartCompany_gte?: InputMaybe<Scalars['Date']>;
+  /** All values that are contained in given list. */
+  dateStartCompany_in?: InputMaybe<Array<InputMaybe<Scalars['Date']>>>;
+  /** All values less than the given value. */
+  dateStartCompany_lt?: InputMaybe<Scalars['Date']>;
+  /** All values less than or equal the given value. */
+  dateStartCompany_lte?: InputMaybe<Scalars['Date']>;
+  /** Any other value that exists and is not equal to the given value. */
+  dateStartCompany_not?: InputMaybe<Scalars['Date']>;
+  /** All values that are not contained in given list. */
+  dateStartCompany_not_in?: InputMaybe<Array<InputMaybe<Scalars['Date']>>>;
+  documentInStages_every?: InputMaybe<ExperienceWhereStageInput>;
+  documentInStages_none?: InputMaybe<ExperienceWhereStageInput>;
+  documentInStages_some?: InputMaybe<ExperienceWhereStageInput>;
+  id?: InputMaybe<Scalars['ID']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  id_not?: InputMaybe<Scalars['ID']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']>;
+  linkCompany?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  linkCompany_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  linkCompany_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  linkCompany_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  linkCompany_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  linkCompany_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  linkCompany_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  linkCompany_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  linkCompany_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  linkCompany_starts_with?: InputMaybe<Scalars['String']>;
+  logoCompany?: InputMaybe<AssetWhereInput>;
+  nameCompany?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  nameCompany_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  nameCompany_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  nameCompany_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  nameCompany_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  nameCompany_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  nameCompany_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  nameCompany_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  nameCompany_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  nameCompany_starts_with?: InputMaybe<Scalars['String']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  publishedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  publishedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  publishedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  publishedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  publishedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  publishedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  publishedBy?: InputMaybe<UserWhereInput>;
+  scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  type?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  type_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  type_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  type_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  type_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  type_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  type_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  type_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  type_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  type_starts_with?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  updatedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  updatedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  updatedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  updatedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  updatedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  updatedBy?: InputMaybe<UserWhereInput>;
+};
+
+/** The document in stages filter allows specifying a stage entry to cross compare the same document between different stages */
+export type ExperienceWhereStageInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<ExperienceWhereStageInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<ExperienceWhereStageInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<ExperienceWhereStageInput>>;
+  /** This field contains fields which can be set as true or false to specify an internal comparison */
+  compareWithParent?: InputMaybe<ExperienceWhereComparatorInput>;
+  /** Specify the stage to compare with */
+  stage?: InputMaybe<Stage>;
+};
+
+/** References Experience record uniquely */
+export type ExperienceWhereUniqueInput = {
+  id?: InputMaybe<Scalars['ID']>;
+  linkCompany?: InputMaybe<Scalars['String']>;
+};
+
 export enum ImageFit {
   /** Resizes the image to fit within the specified parameters without distorting, cropping, or changing the aspect ratio. */
   Clip = 'clip',
@@ -1974,14 +2643,20 @@ export type Mutation = {
   createAsset?: Maybe<Asset>;
   /** Create one author */
   createAuthor?: Maybe<Author>;
+  /** Create one experience */
+  createExperience?: Maybe<Experience>;
   /** Create one scheduledRelease */
   createScheduledRelease?: Maybe<ScheduledRelease>;
+  /** Create one skill */
+  createSkill?: Maybe<Skill>;
   /** Delete one aboutMe from _all_ existing stages. Returns deleted document. */
   deleteAboutMe?: Maybe<AboutMe>;
   /** Delete one asset from _all_ existing stages. Returns deleted document. */
   deleteAsset?: Maybe<Asset>;
   /** Delete one author from _all_ existing stages. Returns deleted document. */
   deleteAuthor?: Maybe<Author>;
+  /** Delete one experience from _all_ existing stages. Returns deleted document. */
+  deleteExperience?: Maybe<Experience>;
   /**
    * Delete many AboutMe documents
    * @deprecated Please use the new paginated many mutation (deleteManyAboutMesConnection)
@@ -2003,16 +2678,34 @@ export type Mutation = {
   deleteManyAuthors: BatchPayload;
   /** Delete many Author documents, return deleted documents */
   deleteManyAuthorsConnection: AuthorConnection;
+  /**
+   * Delete many Experience documents
+   * @deprecated Please use the new paginated many mutation (deleteManyExperiencesConnection)
+   */
+  deleteManyExperiences: BatchPayload;
+  /** Delete many Experience documents, return deleted documents */
+  deleteManyExperiencesConnection: ExperienceConnection;
+  /**
+   * Delete many Skill documents
+   * @deprecated Please use the new paginated many mutation (deleteManySkillsConnection)
+   */
+  deleteManySkills: BatchPayload;
+  /** Delete many Skill documents, return deleted documents */
+  deleteManySkillsConnection: SkillConnection;
   /** Delete and return scheduled operation */
   deleteScheduledOperation?: Maybe<ScheduledOperation>;
   /** Delete one scheduledRelease from _all_ existing stages. Returns deleted document. */
   deleteScheduledRelease?: Maybe<ScheduledRelease>;
+  /** Delete one skill from _all_ existing stages. Returns deleted document. */
+  deleteSkill?: Maybe<Skill>;
   /** Publish one aboutMe */
   publishAboutMe?: Maybe<AboutMe>;
   /** Publish one asset */
   publishAsset?: Maybe<Asset>;
   /** Publish one author */
   publishAuthor?: Maybe<Author>;
+  /** Publish one experience */
+  publishExperience?: Maybe<Experience>;
   /**
    * Publish many AboutMe documents
    * @deprecated Please use the new paginated many mutation (publishManyAboutMesConnection)
@@ -2034,24 +2727,50 @@ export type Mutation = {
   publishManyAuthors: BatchPayload;
   /** Publish many Author documents */
   publishManyAuthorsConnection: AuthorConnection;
+  /**
+   * Publish many Experience documents
+   * @deprecated Please use the new paginated many mutation (publishManyExperiencesConnection)
+   */
+  publishManyExperiences: BatchPayload;
+  /** Publish many Experience documents */
+  publishManyExperiencesConnection: ExperienceConnection;
+  /**
+   * Publish many Skill documents
+   * @deprecated Please use the new paginated many mutation (publishManySkillsConnection)
+   */
+  publishManySkills: BatchPayload;
+  /** Publish many Skill documents */
+  publishManySkillsConnection: SkillConnection;
+  /** Publish one skill */
+  publishSkill?: Maybe<Skill>;
   /** Schedule to publish one aboutMe */
   schedulePublishAboutMe?: Maybe<AboutMe>;
   /** Schedule to publish one asset */
   schedulePublishAsset?: Maybe<Asset>;
   /** Schedule to publish one author */
   schedulePublishAuthor?: Maybe<Author>;
+  /** Schedule to publish one experience */
+  schedulePublishExperience?: Maybe<Experience>;
+  /** Schedule to publish one skill */
+  schedulePublishSkill?: Maybe<Skill>;
   /** Unpublish one aboutMe from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   scheduleUnpublishAboutMe?: Maybe<AboutMe>;
   /** Unpublish one asset from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   scheduleUnpublishAsset?: Maybe<Asset>;
   /** Unpublish one author from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   scheduleUnpublishAuthor?: Maybe<Author>;
+  /** Unpublish one experience from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
+  scheduleUnpublishExperience?: Maybe<Experience>;
+  /** Unpublish one skill from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
+  scheduleUnpublishSkill?: Maybe<Skill>;
   /** Unpublish one aboutMe from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   unpublishAboutMe?: Maybe<AboutMe>;
   /** Unpublish one asset from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   unpublishAsset?: Maybe<Asset>;
   /** Unpublish one author from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   unpublishAuthor?: Maybe<Author>;
+  /** Unpublish one experience from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
+  unpublishExperience?: Maybe<Experience>;
   /**
    * Unpublish many AboutMe documents
    * @deprecated Please use the new paginated many mutation (unpublishManyAboutMesConnection)
@@ -2073,12 +2792,30 @@ export type Mutation = {
   unpublishManyAuthors: BatchPayload;
   /** Find many Author documents that match criteria in specified stage and unpublish from target stages */
   unpublishManyAuthorsConnection: AuthorConnection;
+  /**
+   * Unpublish many Experience documents
+   * @deprecated Please use the new paginated many mutation (unpublishManyExperiencesConnection)
+   */
+  unpublishManyExperiences: BatchPayload;
+  /** Find many Experience documents that match criteria in specified stage and unpublish from target stages */
+  unpublishManyExperiencesConnection: ExperienceConnection;
+  /**
+   * Unpublish many Skill documents
+   * @deprecated Please use the new paginated many mutation (unpublishManySkillsConnection)
+   */
+  unpublishManySkills: BatchPayload;
+  /** Find many Skill documents that match criteria in specified stage and unpublish from target stages */
+  unpublishManySkillsConnection: SkillConnection;
+  /** Unpublish one skill from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
+  unpublishSkill?: Maybe<Skill>;
   /** Update one aboutMe */
   updateAboutMe?: Maybe<AboutMe>;
   /** Update one asset */
   updateAsset?: Maybe<Asset>;
   /** Update one author */
   updateAuthor?: Maybe<Author>;
+  /** Update one experience */
+  updateExperience?: Maybe<Experience>;
   /**
    * Update many aboutMes
    * @deprecated Please use the new paginated many mutation (updateManyAboutMesConnection)
@@ -2100,14 +2837,34 @@ export type Mutation = {
   updateManyAuthors: BatchPayload;
   /** Update many Author documents */
   updateManyAuthorsConnection: AuthorConnection;
+  /**
+   * Update many experiences
+   * @deprecated Please use the new paginated many mutation (updateManyExperiencesConnection)
+   */
+  updateManyExperiences: BatchPayload;
+  /** Update many Experience documents */
+  updateManyExperiencesConnection: ExperienceConnection;
+  /**
+   * Update many skills
+   * @deprecated Please use the new paginated many mutation (updateManySkillsConnection)
+   */
+  updateManySkills: BatchPayload;
+  /** Update many Skill documents */
+  updateManySkillsConnection: SkillConnection;
   /** Update one scheduledRelease */
   updateScheduledRelease?: Maybe<ScheduledRelease>;
+  /** Update one skill */
+  updateSkill?: Maybe<Skill>;
   /** Upsert one aboutMe */
   upsertAboutMe?: Maybe<AboutMe>;
   /** Upsert one asset */
   upsertAsset?: Maybe<Asset>;
   /** Upsert one author */
   upsertAuthor?: Maybe<Author>;
+  /** Upsert one experience */
+  upsertExperience?: Maybe<Experience>;
+  /** Upsert one skill */
+  upsertSkill?: Maybe<Skill>;
 };
 
 
@@ -2126,8 +2883,18 @@ export type MutationCreateAuthorArgs = {
 };
 
 
+export type MutationCreateExperienceArgs = {
+  data: ExperienceCreateInput;
+};
+
+
 export type MutationCreateScheduledReleaseArgs = {
   data: ScheduledReleaseCreateInput;
+};
+
+
+export type MutationCreateSkillArgs = {
+  data: SkillCreateInput;
 };
 
 
@@ -2143,6 +2910,11 @@ export type MutationDeleteAssetArgs = {
 
 export type MutationDeleteAuthorArgs = {
   where: AuthorWhereUniqueInput;
+};
+
+
+export type MutationDeleteExperienceArgs = {
+  where: ExperienceWhereUniqueInput;
 };
 
 
@@ -2191,6 +2963,36 @@ export type MutationDeleteManyAuthorsConnectionArgs = {
 };
 
 
+export type MutationDeleteManyExperiencesArgs = {
+  where?: InputMaybe<ExperienceManyWhereInput>;
+};
+
+
+export type MutationDeleteManyExperiencesConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<ExperienceManyWhereInput>;
+};
+
+
+export type MutationDeleteManySkillsArgs = {
+  where?: InputMaybe<SkillManyWhereInput>;
+};
+
+
+export type MutationDeleteManySkillsConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<SkillManyWhereInput>;
+};
+
+
 export type MutationDeleteScheduledOperationArgs = {
   where: ScheduledOperationWhereUniqueInput;
 };
@@ -2198,6 +3000,11 @@ export type MutationDeleteScheduledOperationArgs = {
 
 export type MutationDeleteScheduledReleaseArgs = {
   where: ScheduledReleaseWhereUniqueInput;
+};
+
+
+export type MutationDeleteSkillArgs = {
+  where: SkillWhereUniqueInput;
 };
 
 
@@ -2219,6 +3026,12 @@ export type MutationPublishAssetArgs = {
 export type MutationPublishAuthorArgs = {
   to?: Array<Stage>;
   where: AuthorWhereUniqueInput;
+};
+
+
+export type MutationPublishExperienceArgs = {
+  to?: Array<Stage>;
+  where: ExperienceWhereUniqueInput;
 };
 
 
@@ -2282,6 +3095,48 @@ export type MutationPublishManyAuthorsConnectionArgs = {
 };
 
 
+export type MutationPublishManyExperiencesArgs = {
+  to?: Array<Stage>;
+  where?: InputMaybe<ExperienceManyWhereInput>;
+};
+
+
+export type MutationPublishManyExperiencesConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  first?: InputMaybe<Scalars['Int']>;
+  from?: InputMaybe<Stage>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  to?: Array<Stage>;
+  where?: InputMaybe<ExperienceManyWhereInput>;
+};
+
+
+export type MutationPublishManySkillsArgs = {
+  to?: Array<Stage>;
+  where?: InputMaybe<SkillManyWhereInput>;
+};
+
+
+export type MutationPublishManySkillsConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  first?: InputMaybe<Scalars['Int']>;
+  from?: InputMaybe<Stage>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  to?: Array<Stage>;
+  where?: InputMaybe<SkillManyWhereInput>;
+};
+
+
+export type MutationPublishSkillArgs = {
+  to?: Array<Stage>;
+  where: SkillWhereUniqueInput;
+};
+
+
 export type MutationSchedulePublishAboutMeArgs = {
   releaseAt?: InputMaybe<Scalars['DateTime']>;
   releaseId?: InputMaybe<Scalars['String']>;
@@ -2306,6 +3161,22 @@ export type MutationSchedulePublishAuthorArgs = {
   releaseId?: InputMaybe<Scalars['String']>;
   to?: Array<Stage>;
   where: AuthorWhereUniqueInput;
+};
+
+
+export type MutationSchedulePublishExperienceArgs = {
+  releaseAt?: InputMaybe<Scalars['DateTime']>;
+  releaseId?: InputMaybe<Scalars['String']>;
+  to?: Array<Stage>;
+  where: ExperienceWhereUniqueInput;
+};
+
+
+export type MutationSchedulePublishSkillArgs = {
+  releaseAt?: InputMaybe<Scalars['DateTime']>;
+  releaseId?: InputMaybe<Scalars['String']>;
+  to?: Array<Stage>;
+  where: SkillWhereUniqueInput;
 };
 
 
@@ -2335,6 +3206,22 @@ export type MutationScheduleUnpublishAuthorArgs = {
 };
 
 
+export type MutationScheduleUnpublishExperienceArgs = {
+  from?: Array<Stage>;
+  releaseAt?: InputMaybe<Scalars['DateTime']>;
+  releaseId?: InputMaybe<Scalars['String']>;
+  where: ExperienceWhereUniqueInput;
+};
+
+
+export type MutationScheduleUnpublishSkillArgs = {
+  from?: Array<Stage>;
+  releaseAt?: InputMaybe<Scalars['DateTime']>;
+  releaseId?: InputMaybe<Scalars['String']>;
+  where: SkillWhereUniqueInput;
+};
+
+
 export type MutationUnpublishAboutMeArgs = {
   from?: Array<Stage>;
   where: AboutMeWhereUniqueInput;
@@ -2352,6 +3239,12 @@ export type MutationUnpublishAssetArgs = {
 export type MutationUnpublishAuthorArgs = {
   from?: Array<Stage>;
   where: AuthorWhereUniqueInput;
+};
+
+
+export type MutationUnpublishExperienceArgs = {
+  from?: Array<Stage>;
+  where: ExperienceWhereUniqueInput;
 };
 
 
@@ -2413,6 +3306,48 @@ export type MutationUnpublishManyAuthorsConnectionArgs = {
 };
 
 
+export type MutationUnpublishManyExperiencesArgs = {
+  from?: Array<Stage>;
+  where?: InputMaybe<ExperienceManyWhereInput>;
+};
+
+
+export type MutationUnpublishManyExperiencesConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  first?: InputMaybe<Scalars['Int']>;
+  from?: Array<Stage>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  stage?: InputMaybe<Stage>;
+  where?: InputMaybe<ExperienceManyWhereInput>;
+};
+
+
+export type MutationUnpublishManySkillsArgs = {
+  from?: Array<Stage>;
+  where?: InputMaybe<SkillManyWhereInput>;
+};
+
+
+export type MutationUnpublishManySkillsConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  first?: InputMaybe<Scalars['Int']>;
+  from?: Array<Stage>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  stage?: InputMaybe<Stage>;
+  where?: InputMaybe<SkillManyWhereInput>;
+};
+
+
+export type MutationUnpublishSkillArgs = {
+  from?: Array<Stage>;
+  where: SkillWhereUniqueInput;
+};
+
+
 export type MutationUpdateAboutMeArgs = {
   data: AboutMeUpdateInput;
   where: AboutMeWhereUniqueInput;
@@ -2428,6 +3363,12 @@ export type MutationUpdateAssetArgs = {
 export type MutationUpdateAuthorArgs = {
   data: AuthorUpdateInput;
   where: AuthorWhereUniqueInput;
+};
+
+
+export type MutationUpdateExperienceArgs = {
+  data: ExperienceUpdateInput;
+  where: ExperienceWhereUniqueInput;
 };
 
 
@@ -2482,9 +3423,49 @@ export type MutationUpdateManyAuthorsConnectionArgs = {
 };
 
 
+export type MutationUpdateManyExperiencesArgs = {
+  data: ExperienceUpdateManyInput;
+  where?: InputMaybe<ExperienceManyWhereInput>;
+};
+
+
+export type MutationUpdateManyExperiencesConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  data: ExperienceUpdateManyInput;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<ExperienceManyWhereInput>;
+};
+
+
+export type MutationUpdateManySkillsArgs = {
+  data: SkillUpdateManyInput;
+  where?: InputMaybe<SkillManyWhereInput>;
+};
+
+
+export type MutationUpdateManySkillsConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  data: SkillUpdateManyInput;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<SkillManyWhereInput>;
+};
+
+
 export type MutationUpdateScheduledReleaseArgs = {
   data: ScheduledReleaseUpdateInput;
   where: ScheduledReleaseWhereUniqueInput;
+};
+
+
+export type MutationUpdateSkillArgs = {
+  data: SkillUpdateInput;
+  where: SkillWhereUniqueInput;
 };
 
 
@@ -2503,6 +3484,18 @@ export type MutationUpsertAssetArgs = {
 export type MutationUpsertAuthorArgs = {
   upsert: AuthorUpsertInput;
   where: AuthorWhereUniqueInput;
+};
+
+
+export type MutationUpsertExperienceArgs = {
+  upsert: ExperienceUpsertInput;
+  where: ExperienceWhereUniqueInput;
+};
+
+
+export type MutationUpsertSkillArgs = {
+  upsert: SkillUpsertInput;
+  where: SkillWhereUniqueInput;
 };
 
 /** An object with an ID */
@@ -2561,6 +3554,14 @@ export type Query = {
   authors: Array<Author>;
   /** Retrieve multiple authors using the Relay connection interface */
   authorsConnection: AuthorConnection;
+  /** Retrieve a single experience */
+  experience?: Maybe<Experience>;
+  /** Retrieve document version */
+  experienceVersion?: Maybe<DocumentVersion>;
+  /** Retrieve multiple experiences */
+  experiences: Array<Experience>;
+  /** Retrieve multiple experiences using the Relay connection interface */
+  experiencesConnection: ExperienceConnection;
   /** Fetches an object given its ID */
   node?: Maybe<Node>;
   /** Retrieve a single scheduledOperation */
@@ -2575,6 +3576,14 @@ export type Query = {
   scheduledReleases: Array<ScheduledRelease>;
   /** Retrieve multiple scheduledReleases using the Relay connection interface */
   scheduledReleasesConnection: ScheduledReleaseConnection;
+  /** Retrieve a single skill */
+  skill?: Maybe<Skill>;
+  /** Retrieve document version */
+  skillVersion?: Maybe<DocumentVersion>;
+  /** Retrieve multiple skills */
+  skills: Array<Skill>;
+  /** Retrieve multiple skills using the Relay connection interface */
+  skillsConnection: SkillConnection;
   /** Retrieve a single user */
   user?: Maybe<User>;
   /** Retrieve multiple users */
@@ -2698,6 +3707,44 @@ export type QueryAuthorsConnectionArgs = {
 };
 
 
+export type QueryExperienceArgs = {
+  locales?: Array<Locale>;
+  stage?: Stage;
+  where: ExperienceWhereUniqueInput;
+};
+
+
+export type QueryExperienceVersionArgs = {
+  where: VersionWhereInput;
+};
+
+
+export type QueryExperiencesArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: Array<Locale>;
+  orderBy?: InputMaybe<ExperienceOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  stage?: Stage;
+  where?: InputMaybe<ExperienceWhereInput>;
+};
+
+
+export type QueryExperiencesConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: Array<Locale>;
+  orderBy?: InputMaybe<ExperienceOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  stage?: Stage;
+  where?: InputMaybe<ExperienceWhereInput>;
+};
+
+
 export type QueryNodeArgs = {
   id: Scalars['ID'];
   locales?: Array<Locale>;
@@ -2768,6 +3815,44 @@ export type QueryScheduledReleasesConnectionArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   stage?: Stage;
   where?: InputMaybe<ScheduledReleaseWhereInput>;
+};
+
+
+export type QuerySkillArgs = {
+  locales?: Array<Locale>;
+  stage?: Stage;
+  where: SkillWhereUniqueInput;
+};
+
+
+export type QuerySkillVersionArgs = {
+  where: VersionWhereInput;
+};
+
+
+export type QuerySkillsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: Array<Locale>;
+  orderBy?: InputMaybe<SkillOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  stage?: Stage;
+  where?: InputMaybe<SkillWhereInput>;
+};
+
+
+export type QuerySkillsConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: Array<Locale>;
+  orderBy?: InputMaybe<SkillOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  stage?: Stage;
+  where?: InputMaybe<SkillWhereInput>;
 };
 
 
@@ -2915,7 +4000,7 @@ export type ScheduledOperationUpdatedByArgs = {
   locales?: InputMaybe<Array<Locale>>;
 };
 
-export type ScheduledOperationAffectedDocument = AboutMe | Asset | Author;
+export type ScheduledOperationAffectedDocument = AboutMe | Asset | Author | Experience | Skill;
 
 export type ScheduledOperationConnectInput = {
   /** Allow to specify document position in list of connected documents, will default to appending at end of list */
@@ -3848,6 +4933,454 @@ export type ScheduledReleaseWhereUniqueInput = {
   id?: InputMaybe<Scalars['ID']>;
 };
 
+export type Skill = Node & {
+  __typename?: 'Skill';
+  /** The time the document was created */
+  createdAt: Scalars['DateTime'];
+  /** User that created this document */
+  createdBy?: Maybe<User>;
+  /** Get the document in other stages */
+  documentInStages: Array<Skill>;
+  /** List of Skill versions */
+  history: Array<Version>;
+  /** The unique identifier */
+  id: Scalars['ID'];
+  /** informações sobre a skill */
+  information: RichText;
+  /** nome da skill */
+  name: Scalars['String'];
+  /** imagens skill */
+  pictureSkill: Asset;
+  /** The time the document was published. Null on documents in draft stage. */
+  publishedAt?: Maybe<Scalars['DateTime']>;
+  /** User that last published this document */
+  publishedBy?: Maybe<User>;
+  scheduledIn: Array<ScheduledOperation>;
+  /** System stage field */
+  stage: Stage;
+  /** The time the document was updated */
+  updatedAt: Scalars['DateTime'];
+  /** User that last updated this document */
+  updatedBy?: Maybe<User>;
+};
+
+
+export type SkillCreatedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
+export type SkillDocumentInStagesArgs = {
+  includeCurrent?: Scalars['Boolean'];
+  inheritLocale?: Scalars['Boolean'];
+  stages?: Array<Stage>;
+};
+
+
+export type SkillHistoryArgs = {
+  limit?: Scalars['Int'];
+  skip?: Scalars['Int'];
+  stageOverride?: InputMaybe<Stage>;
+};
+
+
+export type SkillPictureSkillArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
+export type SkillPublishedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
+export type SkillScheduledInArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: InputMaybe<Array<Locale>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<ScheduledOperationWhereInput>;
+};
+
+
+export type SkillUpdatedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+export type SkillConnectInput = {
+  /** Allow to specify document position in list of connected documents, will default to appending at end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+  /** Document to connect */
+  where: SkillWhereUniqueInput;
+};
+
+/** A connection to a list of items. */
+export type SkillConnection = {
+  __typename?: 'SkillConnection';
+  aggregate: Aggregate;
+  /** A list of edges. */
+  edges: Array<SkillEdge>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+};
+
+export type SkillCreateInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  information: Scalars['RichTextAST'];
+  name: Scalars['String'];
+  pictureSkill: AssetCreateOneInlineInput;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type SkillCreateManyInlineInput = {
+  /** Connect multiple existing Skill documents */
+  connect?: InputMaybe<Array<SkillWhereUniqueInput>>;
+  /** Create and connect multiple existing Skill documents */
+  create?: InputMaybe<Array<SkillCreateInput>>;
+};
+
+export type SkillCreateOneInlineInput = {
+  /** Connect one existing Skill document */
+  connect?: InputMaybe<SkillWhereUniqueInput>;
+  /** Create and connect one Skill document */
+  create?: InputMaybe<SkillCreateInput>;
+};
+
+/** An edge in a connection. */
+export type SkillEdge = {
+  __typename?: 'SkillEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String'];
+  /** The item at the end of the edge. */
+  node: Skill;
+};
+
+/** Identifies documents */
+export type SkillManyWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<SkillWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<SkillWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<SkillWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  createdAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  createdAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  createdAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  createdAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  createdAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  createdAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  createdBy?: InputMaybe<UserWhereInput>;
+  documentInStages_every?: InputMaybe<SkillWhereStageInput>;
+  documentInStages_none?: InputMaybe<SkillWhereStageInput>;
+  documentInStages_some?: InputMaybe<SkillWhereStageInput>;
+  id?: InputMaybe<Scalars['ID']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  id_not?: InputMaybe<Scalars['ID']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']>;
+  name?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  name_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  name_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  name_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  name_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  name_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  name_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  name_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  name_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  name_starts_with?: InputMaybe<Scalars['String']>;
+  pictureSkill?: InputMaybe<AssetWhereInput>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  publishedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  publishedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  publishedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  publishedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  publishedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  publishedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  publishedBy?: InputMaybe<UserWhereInput>;
+  scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  updatedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  updatedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  updatedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  updatedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  updatedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  updatedBy?: InputMaybe<UserWhereInput>;
+};
+
+export enum SkillOrderByInput {
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  PublishedAtAsc = 'publishedAt_ASC',
+  PublishedAtDesc = 'publishedAt_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC'
+}
+
+export type SkillUpdateInput = {
+  information?: InputMaybe<Scalars['RichTextAST']>;
+  name?: InputMaybe<Scalars['String']>;
+  pictureSkill?: InputMaybe<AssetUpdateOneInlineInput>;
+};
+
+export type SkillUpdateManyInlineInput = {
+  /** Connect multiple existing Skill documents */
+  connect?: InputMaybe<Array<SkillConnectInput>>;
+  /** Create and connect multiple Skill documents */
+  create?: InputMaybe<Array<SkillCreateInput>>;
+  /** Delete multiple Skill documents */
+  delete?: InputMaybe<Array<SkillWhereUniqueInput>>;
+  /** Disconnect multiple Skill documents */
+  disconnect?: InputMaybe<Array<SkillWhereUniqueInput>>;
+  /** Override currently-connected documents with multiple existing Skill documents */
+  set?: InputMaybe<Array<SkillWhereUniqueInput>>;
+  /** Update multiple Skill documents */
+  update?: InputMaybe<Array<SkillUpdateWithNestedWhereUniqueInput>>;
+  /** Upsert multiple Skill documents */
+  upsert?: InputMaybe<Array<SkillUpsertWithNestedWhereUniqueInput>>;
+};
+
+export type SkillUpdateManyInput = {
+  information?: InputMaybe<Scalars['RichTextAST']>;
+  name?: InputMaybe<Scalars['String']>;
+};
+
+export type SkillUpdateManyWithNestedWhereInput = {
+  /** Update many input */
+  data: SkillUpdateManyInput;
+  /** Document search */
+  where: SkillWhereInput;
+};
+
+export type SkillUpdateOneInlineInput = {
+  /** Connect existing Skill document */
+  connect?: InputMaybe<SkillWhereUniqueInput>;
+  /** Create and connect one Skill document */
+  create?: InputMaybe<SkillCreateInput>;
+  /** Delete currently connected Skill document */
+  delete?: InputMaybe<Scalars['Boolean']>;
+  /** Disconnect currently connected Skill document */
+  disconnect?: InputMaybe<Scalars['Boolean']>;
+  /** Update single Skill document */
+  update?: InputMaybe<SkillUpdateWithNestedWhereUniqueInput>;
+  /** Upsert single Skill document */
+  upsert?: InputMaybe<SkillUpsertWithNestedWhereUniqueInput>;
+};
+
+export type SkillUpdateWithNestedWhereUniqueInput = {
+  /** Document to update */
+  data: SkillUpdateInput;
+  /** Unique document search */
+  where: SkillWhereUniqueInput;
+};
+
+export type SkillUpsertInput = {
+  /** Create document if it didn't exist */
+  create: SkillCreateInput;
+  /** Update document if it exists */
+  update: SkillUpdateInput;
+};
+
+export type SkillUpsertWithNestedWhereUniqueInput = {
+  /** Upsert data */
+  data: SkillUpsertInput;
+  /** Unique document search */
+  where: SkillWhereUniqueInput;
+};
+
+/** This contains a set of filters that can be used to compare values internally */
+export type SkillWhereComparatorInput = {
+  /** This field can be used to request to check if the entry is outdated by internal comparison */
+  outdated_to?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** Identifies documents */
+export type SkillWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<SkillWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<SkillWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<SkillWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  createdAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  createdAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  createdAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  createdAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  createdAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  createdAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  createdBy?: InputMaybe<UserWhereInput>;
+  documentInStages_every?: InputMaybe<SkillWhereStageInput>;
+  documentInStages_none?: InputMaybe<SkillWhereStageInput>;
+  documentInStages_some?: InputMaybe<SkillWhereStageInput>;
+  id?: InputMaybe<Scalars['ID']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  id_not?: InputMaybe<Scalars['ID']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']>;
+  name?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  name_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  name_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  name_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  name_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  name_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  name_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  name_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  name_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  name_starts_with?: InputMaybe<Scalars['String']>;
+  pictureSkill?: InputMaybe<AssetWhereInput>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  publishedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  publishedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  publishedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  publishedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  publishedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  publishedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  publishedBy?: InputMaybe<UserWhereInput>;
+  scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  updatedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  updatedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  updatedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  updatedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  updatedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  updatedBy?: InputMaybe<UserWhereInput>;
+};
+
+/** The document in stages filter allows specifying a stage entry to cross compare the same document between different stages */
+export type SkillWhereStageInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<SkillWhereStageInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<SkillWhereStageInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<SkillWhereStageInput>>;
+  /** This field contains fields which can be set as true or false to specify an internal comparison */
+  compareWithParent?: InputMaybe<SkillWhereComparatorInput>;
+  /** Specify the stage to compare with */
+  stage?: InputMaybe<Stage>;
+};
+
+/** References Skill record uniquely */
+export type SkillWhereUniqueInput = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
 /** Stage system enumeration */
 export enum Stage {
   /** The Draft is the default stage for all your content. */
@@ -4371,6 +5904,16 @@ export type AuthorsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type AuthorsQuery = { __typename?: 'Query', authors: Array<{ __typename?: 'Author', id: string, name: string, office: string, github: string, picture?: { __typename?: 'Asset', url: string } | null }> };
 
+export type CompanyQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CompanyQuery = { __typename?: 'Query', experiences: Array<{ __typename?: 'Experience', id: string, nameCompany: string, dateStartCompany: any, dateEnd?: any | null, type: string, linkCompany?: string | null, locationCompany: { __typename?: 'Location', latitude: number, longitude: number }, logoCompany: { __typename?: 'Asset', url: string } }> };
+
+export type SkillsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type SkillsQuery = { __typename?: 'Query', skills: Array<{ __typename?: 'Skill', id: string, name: string, information: { __typename?: 'RichText', markdown: string, html: string }, pictureSkill: { __typename?: 'Asset', url: string } }> };
+
 
 export const AboutMeDocument = gql`
     query AboutMe {
@@ -4409,4 +5952,46 @@ export const AuthorsDocument = gql`
 
 export function useAuthorsQuery(options?: Omit<Urql.UseQueryArgs<AuthorsQueryVariables>, 'query'>) {
   return Urql.useQuery<AuthorsQuery, AuthorsQueryVariables>({ query: AuthorsDocument, ...options });
+};
+export const CompanyDocument = gql`
+    query Company {
+  experiences {
+    id
+    nameCompany
+    dateStartCompany
+    dateEnd
+    locationCompany {
+      latitude
+      longitude
+    }
+    logoCompany {
+      url(transformation: {image: {resize: {fit: clip, height: 512, width: 512}}})
+    }
+    type
+    linkCompany
+  }
+}
+    `;
+
+export function useCompanyQuery(options?: Omit<Urql.UseQueryArgs<CompanyQueryVariables>, 'query'>) {
+  return Urql.useQuery<CompanyQuery, CompanyQueryVariables>({ query: CompanyDocument, ...options });
+};
+export const SkillsDocument = gql`
+    query Skills {
+  skills {
+    id
+    name
+    information {
+      markdown
+      html
+    }
+    pictureSkill {
+      url(transformation: {image: {resize: {fit: clip, height: 150, width: 150}}})
+    }
+  }
+}
+    `;
+
+export function useSkillsQuery(options?: Omit<Urql.UseQueryArgs<SkillsQueryVariables>, 'query'>) {
+  return Urql.useQuery<SkillsQuery, SkillsQueryVariables>({ query: SkillsDocument, ...options });
 };

@@ -1,7 +1,7 @@
 
-import { useAboutMeQuery } from '@/generated/graphql';
+import { AboutMeDocument, useAboutMeQuery } from '@/generated/graphql';
 import { client, ssrCache } from '@/lib/urql';
-import { GetServerSideProps } from 'next';
+import { GetServerSideProps, GetStaticProps } from 'next';
 import React, { useEffect } from 'react';
 
 export default function AboutMe(){
@@ -38,20 +38,30 @@ export default function AboutMe(){
     },[])
 
     return(
-        <main className='flex flex-col w-full h-screen overflow-hidden text-white bg-black-200 justify-center align-center text-center'>
+        <main id='aboutPage' className='flex flex-col pt-16 w-full h-auto overflow-hidden text-white bg-black-200 justify-center align-center text-center'>
             <div className='flex w-full h-20 justify-center'>
                 <header className='flex items-center flex-row p-5 justify-center align-center headerAnimateCss'>
-                    <div className='w-6 h-6 mr-2 bg-green-50 rounded-full'></div>
+                    {/* <div className='w-6 h-6 mr-2 bg-green-50 rounded-full'></div> */}
+                    {
+                    aboutMe?.aboutMes ?(
+                        <div className='w-6 h-6 mr-2 bg-green-50 rounded-full'></div>
+                    ):(
+                        <span className="relative flex h-6 w-6">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-6 w-6 bg-sky-500"></span>
+                        </span>
+                    )
+                    }
                     <h1 className="text-5xl font-semibold">{aboutMe?.aboutMes[0].title}</h1>
                 </header>
             </div>
-            <div className='flex w-full h-full justify-center'>
-                <aside className='flex w-5/12 h-full p-20 asideImageAnimateCss'>
+            <div className='flex flex-row w-full h-full justify-center max-lg:flex-col'>
+                <aside className='flex w-5/12 h-full p-20 asideImageAnimateCss  max-lg:w-full max-lg:p-10 max-lg:border-b-2'>
                     <div className='flex w-full h-full bg-blue-600 rounded-2xl'>
                         <img src={aboutMe?.aboutMes[0].picture.url}/>
                     </div>
                 </aside>
-                <main className='flex flex-col w-3/5 h-full p-5 justify-center text-center mainTextAnimateCss'>
+                <main className='flex flex-col w-3/5 h-full p-5 justify-center text-center mainTextAnimateCss max-lg:w-full max-lg:p-2'>
                     <div className='p-8 text-left text-xl mt-6 prose prose-lg mx-auto' 
                         dangerouslySetInnerHTML={{__html: 
                             typeof aboutMe?.aboutMes[0].content?.html === 'string' ?
@@ -59,7 +69,6 @@ export default function AboutMe(){
                             :
                             ''
                         }}>
-                            {/* {aboutMe?.aboutMes[0].content?.markdown} */}
                     </div>
                     <div className='p-8'>
                         <h1 className="text-left text-lg before:content-['</>'] before:pr-2 before:text-lg before:ml-0.5 before:text-yellow-50">{aboutMe?.aboutMes[0].titleFinal}</h1>
@@ -69,3 +78,14 @@ export default function AboutMe(){
         </main>
     )
 }
+
+// mantem o html em cache para ser utilizado posteriormente economizando api do graphql
+export const getStaticProps: GetStaticProps = async () => {
+    await client.query(AboutMeDocument, {}).toPromise();
+  
+    return{
+        props:{
+            urqlState: ssrCache.extractData()
+        }
+    }
+  }

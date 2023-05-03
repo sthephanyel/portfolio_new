@@ -1,0 +1,17 @@
+query Company {
+  experiences {
+    id
+    nameCompany
+    dateStartCompany
+    dateEnd
+    locationCompany {
+      latitude
+      longitude
+    }
+    logoCompany {
+      url(transformation: {image: {resize: {fit: clip, height: 512, width: 512}}})
+    }
+    type
+    linkCompany
+  }
+}

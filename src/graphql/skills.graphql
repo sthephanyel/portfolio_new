@@ -1,0 +1,13 @@
+query Skills {
+  skills {
+    id
+    name
+    information {
+      markdown
+      html
+    }
+    pictureSkill {
+      url(transformation: {image: {resize: {fit: clip, height: 150, width: 150}}})
+    }
+  }
+}
