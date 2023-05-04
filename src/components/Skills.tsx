@@ -59,8 +59,10 @@ export default function Skills() {
                     <div className='flex w-full h-full justify-center items-center border-r-2 border-gray-600'>
                       <img src={item.pictureSkill.url} alt='Image_skill' className='pr-3'/>
                     </div>
-                    <div className='flex w-full h-full justify-center items-center'>
-                      <h1 className='text-3xl'>{item.name}</h1>
+                    <div className='flex flex-col w-full h-full justify-center items-center'>
+                      <h1 className='w-11/12 text-3xl border-b-2 border-gray-300 mb-3'>{item.name}</h1>
+                      <h1 className='text-lg text-gray-200'>Experiencia</h1>
+                      <h1 className='text-xl'>{item.timeExpec} anos</h1>
                     </div>
                   </div>
                 </div>

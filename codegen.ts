@@ -3,7 +3,7 @@ import type { CodegenConfig } from '@graphql-codegen/cli';
 // https://hygraph.com/
 const config: CodegenConfig = {
   overwrite: true,
-  schema: "",
+  schema: "https://api-sa-east-1.hygraph.com/v2/clgpm3c870lky01up9f5s2ozd/master",
   documents: "src/**/*.graphql",
   generates: {
     "src/generated/graphql.tsx": {

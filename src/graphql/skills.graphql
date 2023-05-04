@@ -9,5 +9,6 @@ query Skills {
     pictureSkill {
       url(transformation: {image: {resize: {fit: clip, height: 150, width: 150}}})
     }
+    timeExpec
   }
 }

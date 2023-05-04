@@ -4958,6 +4958,8 @@ export type Skill = Node & {
   scheduledIn: Array<ScheduledOperation>;
   /** System stage field */
   stage: Stage;
+  /** tempo de experiencia */
+  timeExpec: Scalars['String'];
   /** The time the document was updated */
   updatedAt: Scalars['DateTime'];
   /** User that last updated this document */
@@ -5036,6 +5038,7 @@ export type SkillCreateInput = {
   information: Scalars['RichTextAST'];
   name: Scalars['String'];
   pictureSkill: AssetCreateOneInlineInput;
+  timeExpec: Scalars['String'];
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
@@ -5149,6 +5152,25 @@ export type SkillManyWhereInput = {
   scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
   scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
   scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  timeExpec?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  timeExpec_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  timeExpec_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  timeExpec_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  timeExpec_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  timeExpec_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  timeExpec_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  timeExpec_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  timeExpec_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  timeExpec_starts_with?: InputMaybe<Scalars['String']>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -5176,6 +5198,8 @@ export enum SkillOrderByInput {
   NameDesc = 'name_DESC',
   PublishedAtAsc = 'publishedAt_ASC',
   PublishedAtDesc = 'publishedAt_DESC',
+  TimeExpecAsc = 'timeExpec_ASC',
+  TimeExpecDesc = 'timeExpec_DESC',
   UpdatedAtAsc = 'updatedAt_ASC',
   UpdatedAtDesc = 'updatedAt_DESC'
 }
@@ -5184,6 +5208,7 @@ export type SkillUpdateInput = {
   information?: InputMaybe<Scalars['RichTextAST']>;
   name?: InputMaybe<Scalars['String']>;
   pictureSkill?: InputMaybe<AssetUpdateOneInlineInput>;
+  timeExpec?: InputMaybe<Scalars['String']>;
 };
 
 export type SkillUpdateManyInlineInput = {
@@ -5206,6 +5231,7 @@ export type SkillUpdateManyInlineInput = {
 export type SkillUpdateManyInput = {
   information?: InputMaybe<Scalars['RichTextAST']>;
   name?: InputMaybe<Scalars['String']>;
+  timeExpec?: InputMaybe<Scalars['String']>;
 };
 
 export type SkillUpdateManyWithNestedWhereInput = {
@@ -5344,6 +5370,25 @@ export type SkillWhereInput = {
   scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
   scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
   scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  timeExpec?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  timeExpec_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  timeExpec_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  timeExpec_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  timeExpec_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  timeExpec_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  timeExpec_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  timeExpec_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  timeExpec_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  timeExpec_starts_with?: InputMaybe<Scalars['String']>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -5912,7 +5957,7 @@ export type CompanyQuery = { __typename?: 'Query', experiences: Array<{ __typena
 export type SkillsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type SkillsQuery = { __typename?: 'Query', skills: Array<{ __typename?: 'Skill', id: string, name: string, information: { __typename?: 'RichText', markdown: string, html: string }, pictureSkill: { __typename?: 'Asset', url: string } }> };
+export type SkillsQuery = { __typename?: 'Query', skills: Array<{ __typename?: 'Skill', id: string, name: string, timeExpec: string, information: { __typename?: 'RichText', markdown: string, html: string }, pictureSkill: { __typename?: 'Asset', url: string } }> };
 
 
 export const AboutMeDocument = gql`
@@ -5988,6 +6033,7 @@ export const SkillsDocument = gql`
     pictureSkill {
       url(transformation: {image: {resize: {fit: clip, height: 150, width: 150}}})
     }
+    timeExpec
   }
 }
     `;
