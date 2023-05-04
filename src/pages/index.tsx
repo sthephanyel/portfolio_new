@@ -8,7 +8,14 @@ import { client, ssrCache } from '@/lib/urql'
 
 export default function Home() {
   return (
-    <Portfolio/>
+    <>
+    <Head>
+      <meta charSet='utf-8'/>
+      <link rel='icon' type='image/png' sizes='32x32' href='./logo.jpeg'/>
+    </Head>
+      <Portfolio/>
+    </>
+    
   )
 }
 // roda as informações necessárias pelo ServerSide
