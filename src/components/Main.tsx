@@ -1,29 +1,56 @@
 import { useAuthorsQuery } from '@/generated/graphql';
-import React, { useEffect } from 'react';
+import React from 'react';
+import { GithubLogo, ArrowDown } from '@phosphor-icons/react';
 import LoadingLine from './loading/LoadingLine';
 
 export default function Main(){
-    
+
     const [{data: authors}] = useAuthorsQuery();
+    const author = authors?.authors[0];
 
     return(
-        <main className='w-full h-screen flex pl-5 justify-center relative align-center text-center max-[800px]:bg-gradient-to-tl max-[800px]:from-blue-1000 max-[800px]:to-black-200'>
-            <div className='flex flex-col w-3/5 justify-center align-center max-[800px]:w-full'>
-                <div className='w-full flex-col p-2 justify-start'>
-                    <h1 className='text-6xl text-start font-semibold animate__animated animate__bounceInLeft animate__faster'>{authors?.authors[0] ? authors?.authors[0].name : <LoadingLine/>}</h1>
-                    <h1 className={`text-2xl pl-5 pt-4 text-[#B5B5B5] text-start animate__animated animate__bounceInLeft animate__fast `}
-                    >{authors?.authors[0] ? authors?.authors[0].office : <LoadingLine/>}</h1>
+        <main className='relative -mt-16 flex min-h-screen w-full items-center overflow-hidden'>
+            <div className='bg-grid pointer-events-none absolute inset-0' aria-hidden='true'/>
+            <div className='pointer-events-none absolute left-1/2 top-0 h-80 w-[40rem] -translate-x-1/2 rounded-full bg-accent/10 blur-3xl' aria-hidden='true'/>
 
-                    <div className='flex w-44 h-14 overflow-hidden font-semibold mt-10 justify-center items-center border-2 text-2xl border-white rounded-xl ease-in duration-150 hover:bg-green-500'>
-                        <a className='flex w-full h-full justify-center items-center' href={authors?.authors[0].github} target='_blank'>Git Projects</a>
+            <div className='relative mx-auto grid w-full max-w-6xl grid-cols-[1.2fr_1fr] items-center gap-12 px-6 pb-16 pt-32 max-md:grid-cols-1 max-md:gap-10'>
+                <div>
+                    <p className='eyebrow animate__animated animate__fadeInUp animate__faster'>
+                        {'> olá, eu sou'}
+                    </p>
+                    <h1 className='mt-3 text-5xl font-semibold tracking-tight sm:text-6xl lg:text-7xl animate__animated animate__fadeInUp animate__faster'>
+                        {author ? author.name : <LoadingLine/>}
+                    </h1>
+                    <h2 className='mt-4 text-xl text-ink-muted sm:text-2xl animate__animated animate__fadeInUp animate__fast'>
+                        {author ? author.office : <LoadingLine/>}
+                    </h2>
+
+                    <div className='mt-10 flex flex-wrap gap-3'>
+                        <a className='btn btn-primary' href={author?.github} target='_blank' rel='noreferrer'>
+                            <GithubLogo size={20} weight='fill' aria-hidden='true'/>
+                            Git Projects
+                        </a>
+                        <a className='btn btn-ghost' href='#contactsPage'>
+                            Contatos
+                        </a>
+                    </div>
+                </div>
+
+                <div className='relative mx-auto w-full max-w-sm max-md:order-first max-md:max-w-[14rem]'>
+                    <div className='absolute -inset-2 rounded-3xl bg-gradient-to-br from-accent/30 to-transparent blur-2xl' aria-hidden='true'/>
+                    <div className='relative overflow-hidden rounded-3xl border border-line-strong bg-bg-card'>
+                        {author?.picture?.url ? (
+                            <img src={author.picture.url} alt={author.name ?? 'Foto'} className='aspect-[4/5] w-full object-cover object-top'/>
+                        ) : (
+                            <div className='aspect-[4/5] w-full animate-pulse bg-bg-raised'/>
+                        )}
                     </div>
                 </div>
             </div>
-            <div className=' w-2/5 flex flex-col justify-center align-center max-[800px]:hidden'>
-                <div className=' h-4/5 flex absolute bottom-0 right-0 pr-10'>
-                    <img src={authors?.authors[0] ? authors?.authors[0].picture?.url : ''} alt='Image_user' className=''/>
-                </div>
-            </div>
+
+            <a href='#aboutPage' aria-label='Ir para Sobre mim' className='absolute bottom-6 left-1/2 hidden -translate-x-1/2 text-ink-faint transition hover:text-accent md:block'>
+                <ArrowDown size={22} aria-hidden='true'/>
+            </a>
         </main>
     )
 }

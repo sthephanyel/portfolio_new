@@ -1,51 +1,54 @@
 import { House, BookOpenText, User, AddressBook, ChatCenteredDots } from '@phosphor-icons/react';
-import React,{useContext, FormEvent, useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
+
+const links = [
+    { href: '#', label: 'Home', Icon: House },
+    { href: '#aboutPage', label: 'Sobre mim', Icon: User },
+    { href: '#skillsPage', label: 'Skills', Icon: BookOpenText },
+    { href: '#experiencePage', label: 'Experiências', Icon: AddressBook },
+    { href: '#contactsPage', label: 'Contatos', Icon: ChatCenteredDots },
+];
 
 export default function Header(){
 
-    const [colorChange, setColorchange] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
 
     useEffect(()=>{
-        const changeNavbarColor = () =>{
-            if(window.scrollY >= 40){
-            setColorchange(true);
-            }
-            else{
-            setColorchange(false);
-            }
-        };
-        window.addEventListener('scroll', changeNavbarColor);
+        const onScroll = () => setScrolled(window.scrollY >= 40);
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+        return () => window.removeEventListener('scroll', onScroll);
     },[])
 
     return(
-        <header className={`flex w-full h-16 ease-in ${colorChange ? 'bg-black-100' : ''} duration-150 sticky top-0 left-0 z-[999] justify-center align-center text-center`}>
-            <div className='flex w-full h-full px-10 justify-start align-center items-center max-lg:w-2/5 max-md:w-1/4'>
-                <svg width="40" height="47" viewBox="0 0 40 47" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="40" height="47" fill="white"/>
-                    <rect x="1" y="1" width="38" height="45" fill="#060C14"/>
-                    <rect x="4" y="3" width="32" height="40" fill="white"/>
-                    <rect x="5" y="4" width="30" height="38" fill="#060C14"/>
-                    <rect x="7" y="6" width="26" height="33" fill="white"/>
-                    <rect x="8" y="7" width="24" height="31" fill="#060C14"/>
-                    <rect x="10" y="9" width="20" height="27" fill="white"/>
-                    <rect x="11" y="10" width="18" height="25" fill="#060C14"/>
-                </svg>
+        <header className={`sticky top-0 z-[999] w-full border-b transition duration-200 ${scrolled ? 'border-line bg-bg/80 backdrop-blur-md' : 'border-transparent'}`}>
+            <div className='mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-6'>
+                <a href='#' aria-label='Início'>
+                    <svg width="28" height="33" viewBox="0 0 40 47" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden='true' className='text-ink'>
+                        <rect width="40" height="47" fill="currentColor"/>
+                        <rect x="1" y="1" width="38" height="45" fill="#08090b"/>
+                        <rect x="4" y="3" width="32" height="40" fill="currentColor"/>
+                        <rect x="5" y="4" width="30" height="38" fill="#08090b"/>
+                        <rect x="7" y="6" width="26" height="33" fill="currentColor"/>
+                        <rect x="8" y="7" width="24" height="31" fill="#08090b"/>
+                        <rect x="10" y="9" width="20" height="27" fill="#3ddc97"/>
+                        <rect x="11" y="10" width="18" height="25" fill="#08090b"/>
+                    </svg>
+                </a>
+                <nav aria-label='Principal' className='flex items-center gap-1 max-sm:gap-0'>
+                    {links.map(({ href, label, Icon }) => (
+                        <a
+                            key={href}
+                            href={href}
+                            aria-label={label}
+                            className='rounded-md px-3 py-2 text-sm text-ink-muted transition duration-150 hover:text-ink max-sm:px-2.5 max-sm:py-2.5'
+                        >
+                            <Icon size={22} aria-hidden='true' className='hidden max-sm:block' />
+                            <span className='max-sm:hidden'>{label}</span>
+                        </a>
+                    ))}
+                </nav>
             </div>
-            <nav className='flex flex-wrap w-full h-full justify-center align-center place-items-center'>
-                <div className='flex w-full justify-around'>
-                    <a href='#'><House size={32} color="#fafafa"  className='hidden max-sm:inline'/></a>
-                    <a href='#aboutPage'><User size={32} color="#fafafa"  className='hidden max-sm:inline'/></a>
-                    <a href='#skillsPage'><BookOpenText size={32} color="#fafafa"  className='hidden max-sm:inline'/></a>
-                    <a href='#experiencePage'><AddressBook size={32} color="#fafafa"  className='hidden max-sm:inline'/></a>
-                    <a href='#contactsPage'><ChatCenteredDots size={32} color="#fafafa" className='hidden max-sm:inline' /></a>
-                    
-                    <a href='#' className='ease-in duration-150 hover:text-gray-200 hover:border-b-2 hover:border-gray-200 inline max-sm:hidden'>HOME</a>
-                    <a href='#aboutPage' className='ease-in duration-150 hover:text-gray-200 hover:border-b-2 hover:border-gray-200 inline max-sm:hidden'>SOBRE MIM</a>
-                    <a href='#skillsPage' className='ease-in duration-150 hover:text-gray-200 hover:border-b-2 hover:border-gray-200 inline max-sm:hidden'>SKILLS</a>
-                    <a href='#experiencePage' className='ease-in duration-150 hover:text-gray-200 hover:border-b-2 hover:border-gray-200 inline max-sm:hidden'>EXPERIENCIAS</a>
-                    <a href='#contactsPage' className='ease-in duration-150 hover:text-gray-200 hover:border-b-2 hover:border-gray-200 inline max-sm:hidden'>CONTATOS</a>
-                </div>
-            </nav>
         </header>
     )
 }
