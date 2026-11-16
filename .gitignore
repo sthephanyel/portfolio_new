@@ -46,3 +46,5 @@ dist-ssr
 *.sln
 *.sw?
 .env.local
+# variáveis de ambiente
+.env
